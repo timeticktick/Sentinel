@@ -18,6 +18,7 @@ package com.alibaba.csp.sentinel.slotchain;
 import com.alibaba.csp.sentinel.context.Context;
 
 /**
+ * 链式结构的节点，包含next节点
  * @author qinan.qn
  * @author jialiang.linjl
  */

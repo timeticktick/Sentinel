@@ -22,6 +22,7 @@ import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.transport.CommandCenter;
 
 /**
+ * 命令行的命令
  * @author Eric Zhao
  */
 @InitOrder(-1)

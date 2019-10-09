@@ -114,10 +114,12 @@ public class CtSph implements Sph {
         return asyncEntryWithPriorityInternal(resourceWrapper, count, false, args);
     }
 
+
     private Entry entryWithPriority(ResourceWrapper resourceWrapper, int count, boolean prioritized, Object... args)
         throws BlockException {
         Context context = ContextUtil.getContext();
         if (context instanceof NullContext) {
+
             // The {@link NullContext} indicates that the amount of context has exceeded the threshold,
             // so here init the entry only. No rule checking will be done.
             return new CtEntry(resourceWrapper, null, context);
@@ -158,6 +160,9 @@ public class CtSph implements Sph {
 
     /**
      * Do all {@link Rule}s checking about the resource.
+     * 对资源做所有规则对check
+     *
+     * 使用 ProcessorSlots 做规则校验，是形成一个规则链
      *
      * <p>Each distinct resource will use a {@link ProcessorSlot} to do rules checking. Same resource will use
      * same {@link ProcessorSlot} globally. </p>

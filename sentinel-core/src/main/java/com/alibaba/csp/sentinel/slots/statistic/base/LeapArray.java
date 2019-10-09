@@ -40,9 +40,21 @@ import com.alibaba.csp.sentinel.util.TimeUtil;
  */
 public abstract class LeapArray<T> {
 
+    /**
+     * window的时间分片，单位是ms
+     */
     protected int windowLengthInMs;
+
+    /**
+     * 桶的数量
+     */
     protected int sampleCount;
+
+    /**
+     * 统计的间距
+     */
     protected int intervalInMs;
+
 
     protected final AtomicReferenceArray<WindowWrap<T>> array;
 

@@ -31,7 +31,7 @@ import com.alibaba.csp.sentinel.slots.block.RuleConstant;
  *     <li>The {@link #controlBehavior} represents the QPS shaping behavior (actions on incoming request when QPS
  *     exceeds the threshold).</li>
  * </ul>
- *
+ * 流控规则
  * @author jialiang.linjl
  * @author Eric Zhao
  */
@@ -50,16 +50,24 @@ public class FlowRule extends AbstractRule {
 
     /**
      * The threshold type of flow control (0: thread count, 1: QPS).
+     * 限流的阈值type，针对QPS还是针对线程数
      */
     private int grade = RuleConstant.FLOW_GRADE_QPS;
 
     /**
      * Flow control threshold count.
+     * 限流的阈值
      */
     private double count;
 
     /**
      * Flow control strategy based on invocation chain.
+     * 限流模式
+     * – 直接限流:根据限流资源自己的调用量进行限流阀值 单机阈值控制;
+     *
+     * – 关联限流:A资源的限流是根据关联资源B的调用量到达限流阀值而控制;
+     *
+     * – 链路限流:A资源的限流只统计从关联的链路过来的调用量进行限流阀值控制。
      *
      * {@link RuleConstant#STRATEGY_DIRECT} for direct flow control (by origin);
      * {@link RuleConstant#STRATEGY_RELATE} for relevant flow control (with relevant resource);
@@ -69,30 +77,42 @@ public class FlowRule extends AbstractRule {
 
     /**
      * Reference resource in flow control with relevant resource or context.
+     * 流控策略为关联情况下，出现的关联资源 或 对应流控策略为链路情况下，出现的入口资源
      */
     private String refResource;
 
     /**
      * Rate limiter control behavior.
      * 0. default(reject directly), 1. warm up, 2. rate limiter, 3. warm up + rate limiter
+     * 限流的流控行为
      */
     private int controlBehavior = RuleConstant.CONTROL_BEHAVIOR_DEFAULT;
 
+    /**
+     * 流控效果为Warm Up情况下，出现的预热时长
+     */
     private int warmUpPeriodSec = 10;
 
     /**
      * Max queueing time in rate limiter behavior.
+     * 流控效果为排队等待情况下，出现的超时时间
      */
     private int maxQueueingTimeMs = 500;
 
+    /**
+     * 是否集群模式
+     */
     private boolean clusterMode;
+
     /**
      * Flow rule config for cluster mode.
+     * 集群流控的相关配置
      */
     private ClusterFlowConfig clusterConfig;
 
     /**
      * The traffic shaping (throttling) controller.
+     * 流量整形的实现，不同流控效果有不同算法
      */
     private TrafficShapingController controller;
 

@@ -33,6 +33,8 @@ import com.alibaba.csp.sentinel.util.function.Function;
  * slots (NodeSelectorSlot, ClusterNodeBuilderSlot, and StatisticSlot), FlowSlot
  * will use pre-set rules to decide whether the incoming requests should be
  * blocked.
+ *
+ * 结合之前的slot收集的运行时统计，流控slot使用预设的
  * </p>
  *
  * <p>

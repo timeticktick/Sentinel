@@ -35,6 +35,7 @@ public class ClusterFlowConfig {
      * Threshold type (average by local value or global value).
      */
     private int thresholdType = ClusterRuleConstant.FLOW_THRESHOLD_AVG_LOCAL;
+
     private boolean fallbackToLocalWhenFail = true;
 
     /**
